@@ -1,5 +1,4 @@
-doit == 0.33.1
-furo == 2021.7.28b40
-hat-doit >= 0.5.2
-hat-json
-sphinx == 4.1.2
+doit >= 0.33.1
+furo >= 2021.7.28b40
+hat-doit >= 0.6.0
+sphinx >= 4.1.2
