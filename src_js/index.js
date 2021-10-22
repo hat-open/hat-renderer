@@ -216,30 +216,32 @@ export class Renderer extends EventTarget {
     }
 
     _change() {
-        let change = false;
         while (this._changes.length > 0) {
-            const [path, cb] = this._changes.shift();
-            const view = u.get(path);
-            const oldState = this._state;
-            this._state = u.change(path, cb, this._state);
-            if (this._state && u.equals(view(oldState),
-                                        view(this._state)))
-                continue;
-            change = true;
-            if (!this._vtCb || this._timeout)
-                continue;
-            const delay = (!this._lastRender || !this._maxFps ?
-                0 :
-                (1000 / this._maxFps) -
-                (performance.now() - this._lastRender));
-            this._timeout = setTimeout(() => {
-                this._timeout = null;
-                this.render();
-            }, (delay > 0 ? delay : 0));
+            let change = false;
+            while (this._changes.length > 0) {
+                const [path, cb] = this._changes.shift();
+                const view = u.get(path);
+                const oldState = this._state;
+                this._state = u.change(path, cb, this._state);
+                if (this._state && u.equals(view(oldState),
+                                            view(this._state)))
+                    continue;
+                change = true;
+                if (!this._vtCb || this._timeout)
+                    continue;
+                const delay = (!this._lastRender || !this._maxFps ?
+                    0 :
+                    (1000 / this._maxFps) -
+                    (performance.now() - this._lastRender));
+                this._timeout = setTimeout(() => {
+                    this._timeout = null;
+                    this.render();
+                }, (delay > 0 ? delay : 0));
+            }
+            if (change)
+                this.dispatchEvent(
+                    new CustomEvent('change', {detail: this._state}));
         }
-        if (change)
-            this.dispatchEvent(
-                new CustomEvent('change', {detail: this._state}));
     }
 }
 // Renderer.prototype.set = u.curry(Renderer.prototype.set);
