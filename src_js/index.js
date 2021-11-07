@@ -1,20 +1,18 @@
 /** @module @hat-open/renderer
  */
 
-import {init as snabbdomInit} from 'snabbdom/init';
-import {h as snabbdomH} from 'snabbdom/h';
-import {classModule as snabbdomClass} from 'snabbdom/modules/class';
-import {datasetModule as snabbdomDataset} from 'snabbdom/modules/dataset';
-import {eventListenersModule as snabbdomEvent} from 'snabbdom/modules/eventlisteners';
-import {styleModule as snabbdomStyle} from 'snabbdom/modules/style';
+import * as snabbdom from 'snabbdom';
 
 import * as u from '@hat-open/util';
 
 
-// patched version of snabbdom's es/modules/attributes.js
-const snabbdomAttributes = (() => {
+// patched version of snabbdom's modules/attributes.js
+const snabbdomAttributesModule = (() => {
     function updateAttrs(oldVnode, vnode) {
-        var key, elm = vnode.elm, oldAttrs = oldVnode.data.attrs, attrs = vnode.data.attrs;
+        let key;
+        const elm = vnode.elm;
+        let oldAttrs = oldVnode.data.attrs;
+        let attrs = vnode.data.attrs;
         if (!oldAttrs && !attrs)
             return;
         if (oldAttrs === attrs)
@@ -22,8 +20,8 @@ const snabbdomAttributes = (() => {
         oldAttrs = oldAttrs || {};
         attrs = attrs || {};
         for (key in attrs) {
-            var cur = attrs[key];
-            var old = oldAttrs[key];
+            const cur = attrs[key];
+            const old = oldAttrs[key];
             if (old !== cur) {
                 if (cur === true) {
                     elm.setAttribute(key, "");
@@ -46,10 +44,15 @@ const snabbdomAttributes = (() => {
 })();
 
 
-// patched version of snabbdom's es/modules/props.js
-const snabbdomProps = (() => {
+// patched version of snabbdom's modules/props.js
+const snabbdomPropsModule = (() => {
     function updateProps(oldVnode, vnode) {
-        var key, cur, old, elm = vnode.elm, oldProps = oldVnode.data.props, props = vnode.data.props;
+        let key;
+        let cur;
+        let old;
+        const elm = vnode.elm;
+        let oldProps = oldVnode.data.props;
+        let props = vnode.data.props;
         if (!oldProps && !props)
             return;
         if (oldProps === props)
@@ -77,13 +80,13 @@ const snabbdomProps = (() => {
 })();
 
 
-const patch = snabbdomInit([
-    snabbdomAttributes,
-    snabbdomClass,
-    snabbdomDataset,
-    snabbdomEvent,
-    snabbdomProps,
-    snabbdomStyle
+const patch = snabbdom.init([
+    snabbdomAttributesModule,
+    snabbdom.classModule,
+    snabbdom.datasetModule,
+    snabbdom.eventListenersModule,
+    snabbdomPropsModule,
+    snabbdom.styleModule
 ]);
 
 
@@ -105,8 +108,8 @@ function vhFromArray(node) {
         Array.from
     )(node.slice(hasData ? 2 : 1));
     const result = hasData ?
-        snabbdomH(node[0], node[1], children) :
-        snabbdomH(node[0], children);
+        snabbdom.h(node[0], node[1], children) :
+        snabbdom.h(node[0], children);
     return result;
 }
 

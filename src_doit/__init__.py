@@ -38,9 +38,7 @@ def task_build():
             description='Hat virtual DOM renderer',
             license=common.License.APACHE2,
             homepage='https://github.com/hat-open/hat-renderer',
-            repository='hat-open/hat-renderer',
-            dependencies={'snabbdom': '*',
-                          '@hat-open/util': '>=0.5.4'})
+            repository='hat-open/hat-renderer')
 
     return {'actions': [build],
             'task_dep': ['deps']}

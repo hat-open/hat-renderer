@@ -1,8 +1,12 @@
 {
   "private": true,
   "devDependencies": {
-    "docdash": "1.2.0",
-    "eslint": "7.21.0",
-    "jsdoc": "3.6.6"
+    "docdash": "^1.2.0",
+    "eslint": "^8.2.0",
+    "jsdoc": "^3.6.7"
+  },
+  "dependencies": {
+    "@hat-open/util": "^0.5.4",
+    "snabbdom": "^3.1.0"
   }
 }
