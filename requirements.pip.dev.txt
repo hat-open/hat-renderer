@@ -1,4 +1,4 @@
-doit ~= 0.33.1
-furo >= 2021.10.9
-hat-doit ~= 0.7.4
-sphinx ~= 4.2.0
+doit >= 0.34.2
+furo >= 2022.3.4
+hat-doit ~= 0.8.2
+sphinx >= 4.4.0
