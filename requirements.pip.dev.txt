@@ -1,4 +1,3 @@
-doit >= 0.34.2
-furo >= 2022.3.4
-hat-doit ~= 0.8.2
-sphinx >= 4.4.0
+-r requirements.pip.runtime.txt
+
+hat-doit ~= 0.11.3
