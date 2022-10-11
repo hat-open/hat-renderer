@@ -1,14 +1,18 @@
 from pathlib import Path
+import subprocess
 
 from hat.doit import common
 from hat.doit.docs import build_sphinx
 from hat.doit.js import (build_npm,
+                         ESLintConf,
                          run_eslint)
 
 
 __all__ = ['task_clean_all',
            'task_node_modules',
            'task_build',
+           'task_build_js',
+           'task_build_ts',
            'task_check',
            'task_docs']
 
@@ -18,6 +22,7 @@ docs_dir = Path('docs')
 src_js_dir = Path('src_js')
 
 build_js_dir = build_dir / 'js'
+build_ts_dir = build_dir / 'ts'
 build_docs_dir = build_dir / 'docs'
 
 
@@ -33,10 +38,16 @@ def task_node_modules():
 
 def task_build():
     """Build"""
+    return {'actions': None,
+            'task_dep': ['build_js']}
+
+
+def task_build_js():
+    """Build JavaScript npm"""
 
     def build():
         build_npm(
-            src_dir=src_js_dir,
+            src_dir=build_ts_dir,
             dst_dir=build_js_dir,
             name='@hat-open/renderer',
             description='Hat virtual DOM renderer',
@@ -45,12 +56,24 @@ def task_build():
             repository='hat-open/hat-renderer')
 
     return {'actions': [build],
+            'task_dep': ['build_ts',
+                         'node_modules']}
+
+
+def task_build_ts():
+    """Build TypeScript"""
+
+    def build():
+        subprocess.run(['node_modules/.bin/tsc'],
+                       check=True)
+
+    return {'actions': [build],
             'task_dep': ['node_modules']}
 
 
 def task_check():
     """Check with eslint"""
-    return {'actions': [(run_eslint, [src_js_dir])],
+    return {'actions': [(run_eslint, [src_js_dir, ESLintConf.TS])],
             'task_dep': ['node_modules']}
 
 
