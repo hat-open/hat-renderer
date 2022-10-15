@@ -7,8 +7,30 @@ export type VtFn = (r?: Renderer) => u.VNode;
 export type ChangeFn = (x: u.JData) => u.JData;
 
 
+export class RenderEvent extends CustomEvent<u.JData> {
+    declare readonly type: 'render';
+
+    constructor(state: u.JData) {
+        super('render', {detail: state});
+    }
+
+}
+
+export class ChangeEvent extends CustomEvent<u.JData> {
+    declare readonly type: 'change';
+
+    constructor(state: u.JData) {
+        super('change', {detail: state});
+    }
+
+}
+
 /**
  * Virtual DOM renderer
+ *
+ * Available events:
+ *  - RenderEvent
+ *  - ChangeEvent
  */
 export class Renderer extends EventTarget {
     _state: u.JData = null;
@@ -67,7 +89,7 @@ export class Renderer extends EventTarget {
         const vNode = vdom.convertVNode(this._vtCb(this));
         vdom.patch(this._vNode, vNode);
         this._vNode = vNode;
-        this.dispatchEvent(new CustomEvent('render', {detail: this._state}));
+        this.dispatchEvent(new RenderEvent(this._state));
     }
 
     /**
@@ -143,8 +165,7 @@ export class Renderer extends EventTarget {
                 }, (delay > 0 ? delay : 0));
             }
             if (change)
-                this.dispatchEvent(
-                    new CustomEvent('change', {detail: this._state}));
+                this.dispatchEvent(new ChangeEvent(this._state));
         }
     }
 }
