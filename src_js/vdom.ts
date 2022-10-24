@@ -99,9 +99,7 @@ export function convertVNode(node: u.VNode): snabbdom.VNode {
         throw Error("invalid node");
     const data = (u.isVNodeWithData(node) ? node[1] : {});
     const children = u.pipe(
-        u.getVNodeChildren,
-        u.flattenVNodeChildren,
-        Array.from<string | u.VNode>,
+        u.getFlatVNodeChildren,
         u.map<string | u.VNode, string | snabbdom.VNode>(i =>
             u.isString(i) ? i : convertVNode(i)
         )

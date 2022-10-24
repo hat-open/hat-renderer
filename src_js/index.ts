@@ -3,7 +3,7 @@ import * as u from '@hat-open/util';
 import * as vdom from './vdom';
 
 
-export type VtFn = (r?: Renderer) => u.VNode;
+export type VtFn = (r: Renderer) => u.VNode;
 export type ChangeFn = (x: u.JData) => u.JData;
 
 
@@ -36,7 +36,7 @@ export class Renderer extends EventTarget {
     _state: u.JData = null;
     _changes: [u.JPath, ChangeFn][] = [];
     _promise: Promise<void> | null = null;
-    _timeout: number | null = null;
+    _timeout: ReturnType<typeof setTimeout> | null = null;
     _lastRender: number | null = null;
     _vtCb: VtFn | null = null;
     _maxFps = 30;
@@ -123,21 +123,20 @@ export class Renderer extends EventTarget {
         const path = (arguments.length < 2 ? [] : x) as u.JPath;
         const cb = (arguments.length < 2 ? x : y) as ChangeFn;
         this._changes.push([path, cb]);
-        if (this._promise)
-            return this._promise;
-        this._promise = new Promise((resolve, reject) => {
-            setTimeout(() => {
-                try {
-                    this._change();
-                } catch(e) {
+        if (!this._promise)
+            this._promise = new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    try {
+                        this._change();
+                    } catch(e) {
+                        this._promise = null;
+                        reject(e);
+                        throw e;
+                    }
                     this._promise = null;
-                    reject(e);
-                    throw e;
-                }
-                this._promise = null;
-                resolve();
-            }, 0);
-        });
+                    resolve();
+                }, 0);
+            });
         return this._promise;
     }
 

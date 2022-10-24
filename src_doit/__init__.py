@@ -13,6 +13,7 @@ __all__ = ['task_clean_all',
            'task_build',
            'task_build_js',
            'task_build_ts',
+           'task_test',
            'task_check',
            'task_docs']
 
@@ -20,6 +21,7 @@ __all__ = ['task_clean_all',
 build_dir = Path('build')
 docs_dir = Path('docs')
 src_js_dir = Path('src_js')
+jest_dir = Path('test_jest')
 
 build_js_dir = build_dir / 'js'
 build_ts_dir = build_dir / 'ts'
@@ -71,9 +73,22 @@ def task_build_ts():
             'task_dep': ['node_modules']}
 
 
+def task_test():
+    """Test"""
+
+    def run(args):
+        subprocess.run(['node_modules/.bin/jest', *(args or [])],
+                       check=True)
+
+    return {'actions': [run],
+            'pos_arg': 'args',
+            'task_dep': ['node_modules']}
+
+
 def task_check():
     """Check with eslint"""
-    return {'actions': [(run_eslint, [src_js_dir, ESLintConf.TS])],
+    return {'actions': [(run_eslint, [src_js_dir, ESLintConf.TS]),
+                        (run_eslint, [jest_dir, ESLintConf.TS])],
             'task_dep': ['node_modules']}
 
 

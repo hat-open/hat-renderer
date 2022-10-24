@@ -18,3 +18,5 @@ jobs:
                 pip install -r requirements.pip.dev.txt
           - name: doit check
             run: doit check
+          - name: doit test
+            run: doit test
