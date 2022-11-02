@@ -948,10 +948,10 @@
     minimatch "^3.1.2"
     strip-json-comments "^3.1.1"
 
-"@hat-open/util@^0.6.6":
-  version "0.6.6"
-  resolved "https://registry.yarnpkg.com/@hat-open/util/-/util-0.6.6.tgz#594ff547e74865d104f668b879287fc65dad6dd2"
-  integrity sha512-Imo57l3m3YBBQUTWw0cXMvHxAP75lG8RcZNSm2FoVYdL8ayJNWGAvwxzyA7GIbnlUWjeod/T+RU3sPuoOzLS1A==
+"@hat-open/util@^0.6.7":
+  version "0.6.7"
+  resolved "https://registry.yarnpkg.com/@hat-open/util/-/util-0.6.7.tgz#0925b079b21f7b0250e53942e9316d0e606a491a"
+  integrity sha512-1CrzfjAO+T+9A4sevDwMeudq/Mm4OrKSA+3vtASsPaBea9QmknoacSxsw7xUTIofQbl3eSEmBfh38Zx0xI9Pgw==
 
 "@humanwhocodes/config-array@^0.11.6":
   version "0.11.6"
