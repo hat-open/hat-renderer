@@ -3,7 +3,7 @@ import subprocess
 
 from hat.doit import common
 from hat.doit.docs import build_sphinx
-from hat.doit.js import (build_npm,
+from hat.doit.js import (get_task_build_npm,
                          ESLintConf,
                          run_eslint)
 
@@ -46,20 +46,11 @@ def task_build():
 
 def task_build_js():
     """Build JavaScript npm"""
-
-    def build():
-        build_npm(
-            src_dir=build_ts_dir,
-            dst_dir=build_js_dir,
-            name='@hat-open/renderer',
-            description='Hat virtual DOM renderer',
-            license=common.License.APACHE2,
-            homepage='https://github.com/hat-open/hat-renderer',
-            repository='hat-open/hat-renderer')
-
-    return {'actions': [build],
-            'task_dep': ['build_ts',
-                         'node_modules']}
+    return get_task_build_npm(src_dir=build_ts_dir,
+                              build_dir=build_js_dir,
+                              name='@hat-open/renderer',
+                              task_dep=['build_ts',
+                                        'node_modules'])
 
 
 def task_build_ts():
