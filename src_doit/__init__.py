@@ -6,6 +6,7 @@ from hat.doit.docs import build_sphinx
 from hat.doit.js import (get_task_build_npm,
                          ESLintConf,
                          run_eslint)
+from hat.doit.py import get_task_create_pip_requirements
 
 
 __all__ = ['task_clean_all',
@@ -15,7 +16,8 @@ __all__ = ['task_clean_all',
            'task_build_ts',
            'task_test',
            'task_check',
-           'task_docs']
+           'task_docs',
+           'task_pip_requirements']
 
 
 build_dir = Path('build')
@@ -93,3 +95,8 @@ def task_docs():
 
     return {'actions': [build],
             'task_dep': ['node_modules']}
+
+
+def task_pip_requirements():
+    """Create pip requirements"""
+    return get_task_create_pip_requirements()
