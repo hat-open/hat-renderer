@@ -1,7 +1,7 @@
 import { expect, test } from '@jest/globals';
 import * as u from '@hat-open/util';
 
-import { Renderer, ChangeEvent } from '../src_js/index';
+import { Renderer, ChangeEvent } from '../src_js/index.js';
 
 
 test('change', async () => {

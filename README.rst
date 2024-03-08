@@ -1,38 +1,58 @@
+.. _online documentation: https://hat-renderer.hat-open.com
+.. _git repository: https://github.com/hat-open/hat-renderer.git
+.. _npm package: https://www.npmjs.com/package/@hat-open/renderer
+.. _pydoit: https://pydoit.org
+.. _Hat Open: https://hat-open.com
+.. _Končar Digital: https://www.koncar.hr/en
+
 hat-renderer - JavaScript virtual DOM renderer
 ==============================================
 
-This library is part of Hat Open project - open-source framework of tools and
-libraries for developing applications used for remote monitoring, control and
-management of intelligent electronic devices such as IoT devices, PLCs,
-industrial automation or home automation systems.
-
-Development of Hat Open and associated repositories is sponsored by
-`Končar Digital <https://www.koncar.hr>`_.
-
 For more information see:
 
-    * hat-renderer documentation - `<https://hat-renderer.hat-open.com>`_
-    * hat-renderer git repository - `<https://github.com/hat-open/hat-renderer.git>`_
-    * Hat Open homepage - `<https://hat-open.com>`_
-
-.. warning::
-
-    This project is currently in state of active development. Features,
-    functionality and API are unstable.
+* `online documentation`_
+* `git repository`_
 
 
 Install
 -------
 
-::
+`hat-renderer` JavaScript library is available as `npm package`_::
 
-    $ npm add @hat-open/renderer
+    $ npm install @hat-open/renderer
+
+
+Build
+-----
+
+Build tool used for `hat-renderer` is `pydoit`_. For listing available doit
+tasks, use::
+
+    $ doit list
+
+Default task::
+
+    $ doit
+
+creates npm package inside `build` directory.
+
+
+Hat Open
+--------
+
+`hat-renderer` is part of `Hat Open`_ project - open-source framework of tools
+and libraries for developing applications used for remote monitoring, control
+and management of intelligent electronic devices such as IoT devices, PLCs,
+industrial automation or home automation systems.
+
+Development of Hat Open and associated repositories is sponsored by
+`Končar Digital`_.
 
 
 License
 -------
 
-Copyright 2020-2022 Hat Open AUTHORS
+Copyright 2020-2024 Hat Open AUTHORS
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

@@ -1,6 +1,6 @@
 import * as u from '@hat-open/util';
 
-import * as vdom from './vdom';
+import * as vdom from './vdom.js';
 
 
 export type VtFn = (r: Renderer) => u.VNode;

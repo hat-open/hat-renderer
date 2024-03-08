@@ -37,7 +37,7 @@ def task_clean_all():
 
 def task_node_modules():
     """Install node_modules"""
-    return {'actions': ['yarn install --silent']}
+    return {'actions': ['npm install --silent --progress false']}
 
 
 def task_build():
@@ -57,12 +57,7 @@ def task_build_js():
 
 def task_build_ts():
     """Build TypeScript"""
-
-    def build():
-        subprocess.run(['node_modules/.bin/tsc'],
-                       check=True)
-
-    return {'actions': [build],
+    return {'actions': ['npx tsc'],
             'task_dep': ['node_modules']}
 
 
@@ -70,7 +65,7 @@ def task_test():
     """Test"""
 
     def run(args):
-        subprocess.run(['node_modules/.bin/jest', *(args or [])],
+        subprocess.run(['npx', 'jest', *(args or [])],
                        check=True)
 
     return {'actions': [run],

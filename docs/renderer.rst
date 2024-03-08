@@ -1,2 +1,2 @@
-`@hat-open/util` - JavaScript virtual DOM renderer
-==================================================
+`@hat-open/renderer` - JavaScript virtual DOM renderer
+======================================================
