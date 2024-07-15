@@ -12,4 +12,4 @@ Repository = "https://github.com/hat-open/hat-renderer.git"
 Documentation = "http://hat-renderer.hat-open.com"
 
 [project.optional-dependencies]
-dev = ["hat-doit ~=0.15.11"]
+dev = ["hat-doit ~=0.15.16"]
